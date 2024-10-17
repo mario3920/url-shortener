@@ -20,18 +20,17 @@ export class UrlService {
     let newUrl:string = ''
     do {
       const urlCode = generateShortCode(6)
-      newUrl = `http://${process.env.API_URL}/${urlCode}`
+      newUrl = urlCode
       isUrlUsed = await this.urlRepository.findOne({where:{shortenedUrl:newUrl}})
-      console.log("url available?", isUrlUsed);
     }while(isUrlUsed!= null)
 
     await this.urlRepository.save({defaultUrl:createurlDto.url, shortenedUrl: newUrl, urlOwner: id});
      
-    return {url: newUrl, message: "Url shortened successfully."}
+    return {url: `http://${process.env.API_URL}/${newUrl}`, message: "Url shortened successfully."}
   }
 
   async getUrlsByOwner(id: string){
-    const query = await this.urlRepository.find({where:{urlOwner:id}});
+    const query = await this.urlRepository.find({where:{urlOwner:id},select:['id','defaultUrl', 'shortenedUrl','clickCounter']});
     return query
   }
 
@@ -43,7 +42,7 @@ export class UrlService {
     }
     const urltoUpdate = await this.urlRepository.update(id,{defaultUrl: newUrl.url})
 
-    return {id: id, message: "url deleted successfully"}
+    return {id: id, message: "url updated successfully"}
   }
 
   async delete(id:string, userId:string){
@@ -56,5 +55,16 @@ export class UrlService {
     await this.urlRepository.softDelete(id)
 
     return {id: id, message: "url deleted successfully"}
+  }
+
+  async redirectToLink(urlCode:string){
+    const targetUrl = await this.urlRepository.findOne({where:{shortenedUrl:urlCode}})
+    
+    if(targetUrl){
+      targetUrl.clickCounter += 1
+      await this.urlRepository.save(targetUrl)
+      return targetUrl.defaultUrl
+    }
+    throw new NotFoundException('URL not found');
   }
 }

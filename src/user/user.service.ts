@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,19 +11,26 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
+    try{
+      await this.userRepository.save(createUserDto)
+    }catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        throw new ConflictException('Email already exists');
+      } else {
+        throw new InternalServerErrorException('Unexpected error occurred');
+      }
+    }
     
-    this.userRepository.save(createUserDto)
-    
-    return 'This action adds a new user';
+    return {message: "User created successfully"};
   }
 
   findByEmail(email:string) {
     return this.userRepository.findOne({where:{email:email}});
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const urltoUpdate = await this.userRepository.update(id,updateUserDto)
   }
 
 }

@@ -11,7 +11,11 @@ export class UserController {
   @Public()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    try{
+      return this.userService.create(createUserDto);
+    }catch (error) {
+      throw new Error(error)
+    }
   }
 
   @Patch(':id')
