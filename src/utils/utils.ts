@@ -1,3 +1,4 @@
+import { BadRequestException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
 
@@ -21,4 +22,8 @@ const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
             return id
         }
         return null
+    }
+
+    export function isValidId(id:string){
+        if(isNaN(parseInt(id))) throw new BadRequestException('ID must be a number');
     }

@@ -31,6 +31,7 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const urltoUpdate = await this.userRepository.update(id,updateUserDto)
+    return {message: "User updated successfully"};
   }
 
 }
