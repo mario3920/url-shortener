@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
@@ -17,7 +17,7 @@ import { AuthGuard } from './auth.guard';
       signOptions: { expiresIn: '1h' },
     })
   ],
-  providers: [AuthService, {provide: APP_GUARD, useClass: AuthGuard}],
+  providers: [AuthService, {provide: APP_GUARD, useClass: AuthGuard}, Logger],
   controllers: [AuthController],
   exports:[AuthService]
 })
