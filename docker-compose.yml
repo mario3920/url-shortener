@@ -1,0 +1,25 @@
+services:
+
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: test
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: 12345678
+      MYSQL_HOST: localhost
+      MYSQL_ROOT_PASSWORD: 12345678
+    ports: 
+      - 3306:3306
+
+  api:
+    build: 
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports: 
+      - 80:80
+    env_file:
+      - ./.env
+    restart: always
