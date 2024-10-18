@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('Url Shortener API')
     .setDescription('Make your links shorter with API ')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('users')
     .build();
     

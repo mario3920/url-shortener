@@ -5,8 +5,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from 'src/common/decorators';
 import { jwtDecodeGetId } from 'src/utils/utils';
 import { JwtService } from '@nestjs/jwt';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('users')
 @Controller('user')
 export class UserController {

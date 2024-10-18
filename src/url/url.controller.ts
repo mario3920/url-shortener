@@ -6,9 +6,10 @@ import { isValidId, jwtDecodeGetId } from 'src/utils/utils';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUrlDto } from './dto/update-url.dto';
 import { Response } from 'express';
-import { ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Url } from './entities/url.entity';
 
+@ApiBearerAuth()
 @ApiTags('Urls')
 @Controller()
 export class UrlController {
