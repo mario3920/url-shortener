@@ -23,7 +23,7 @@ export class UrlController {
       const userId:string = await jwtDecodeGetId(this.jwtService,headers.authorization)
       return this.urlService.create(createUrlDto, userId);
     }catch (error) {
-      throw new Error(error)
+      return error.response
     }
   }
 
@@ -36,7 +36,7 @@ export class UrlController {
       const userId:string = await jwtDecodeGetId(this.jwtService,headers.authorization)
       return this.urlService.getUrlsByOwner(userId)
     }catch (error) {
-      throw new Error(error)
+      return error.response
     }
   }
 
@@ -66,7 +66,7 @@ export class UrlController {
       const userId:string = await jwtDecodeGetId(this.jwtService,headers.authorization)
       return this.urlService.update(id, userId, updateUser)
     }catch (error) {
-      throw new Error(error)
+      return error.response
     }
   }
 
@@ -81,7 +81,7 @@ export class UrlController {
       const userId:string = await jwtDecodeGetId(this.jwtService,headers.authorization)
       return this.urlService.delete(id, userId)
     }catch (error) {
-      throw new Error(error)
+      return error.response
     }
   }
 }
