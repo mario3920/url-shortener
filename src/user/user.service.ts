@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { hashPassword } from 'src/utils/utils';
 
 @Injectable()
 export class UserService {
@@ -15,7 +16,12 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     this.logger.log('Create User Service called');
     try{
-      await this.userRepository.save(createUserDto)
+      let newUser = new User()
+      newUser.name = createUserDto.name
+      newUser.password = await hashPassword(createUserDto.password)
+      newUser.email = createUserDto.email
+
+      await this.userRepository.save(newUser)
     }catch (error) {
       if (error.code === 'ER_DUP_ENTRY') {
         this.logger.error('User already exists with this Email');

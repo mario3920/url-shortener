@@ -1,6 +1,7 @@
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
+import { verifyPassword } from 'src/utils/utils';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     this.logger.log('Auth signIn Service called');
     const user = await this.userService.findByEmail(email);
 
-    if(user?.password !== pass){
+    if(!verifyPassword(pass, user.password)){
       this.logger.error("Invalid Credentials in SignIn")
       throw new UnauthorizedException('Invalid credentials');
     }
