@@ -29,6 +29,7 @@ specifiers:
   prettier: ^3.0.0
   reflect-metadata: ^0.2.0
   rxjs: ^7.8.1
+  shortid: ^2.2.16
   source-map-support: ^0.5.21
   supertest: ^7.0.0
   swagger-ui-express: ^5.0.1
@@ -54,6 +55,7 @@ dependencies:
   mysql2: 3.11.3
   reflect-metadata: 0.2.2
   rxjs: 7.8.1
+  shortid: 2.2.16
   swagger-ui-express: 5.0.1
   typeorm: 0.3.20_fe2wrfagcuno5d3tykmgc7b52e
 
@@ -4212,6 +4214,10 @@ packages:
       lru-cache: 7.18.3
     dev: false
 
+  /nanoid/2.1.11:
+    resolution: {integrity: sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==}
+    dev: false
+
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -4768,6 +4774,13 @@ packages:
   /shebang-regex/3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+
+  /shortid/2.2.16:
+    resolution: {integrity: sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    dependencies:
+      nanoid: 2.1.11
+    dev: false
 
   /side-channel/1.0.6:
     resolution: {integrity: sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==}

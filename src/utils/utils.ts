@@ -1,21 +1,17 @@
 import { BadRequestException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import argon2 from 'argon2';
+import shortid from 'shortid';
+import { Url } from "src/url/entities/url.entity";
+import { Repository } from "typeorm";
 
+    export async function generateShortCode(repo:Repository<Url>) {
+      const linkId = shortid.generate().substring(0,6);
+      
+      if(await repo.findOne({where:{shortenedUrl:linkId}})) return generateShortCode(repo)
 
-const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-
-    // Função para gerar um código encurtado de 6 caracteres
-    export function generateShortCode(length:number = 6):string {
-        let shortCode:string = '';
-        
-        for (let i = 0; i < length; i++) {
-            const randomIndex:number = Math.floor(Math.random() * characters.length);
-            shortCode += characters[randomIndex];
-        }
-        return shortCode;
-    }
+      return linkId;
+    };
 
     export async function jwtDecodeGetId(jwtService:JwtService, authorization:string) {
         if(authorization){
