@@ -13,15 +13,6 @@ import { Repository } from "typeorm";
       return linkId;
     };
 
-    export async function jwtDecodeGetId(jwtService:JwtService, authorization:string) {
-        if(authorization){
-            const [type, token] = authorization.split(' ')
-            const {id} = await jwtService.decode(token)
-            return id
-        }
-        return null
-    }
-
     export function isValidId(id:string){
         if(isNaN(parseInt(id))) throw new BadRequestException('ID must be a number');
     }

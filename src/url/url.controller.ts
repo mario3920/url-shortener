@@ -16,7 +16,7 @@ import {
 import { UrlService } from './url.service';
 import { Public } from 'src/common/decorators';
 import { CreateUrlDto } from './dto/create-url.dto';
-import { isValidId, jwtDecodeGetId } from 'src/common/utils';
+import { isValidId } from 'src/common/utils';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUrlDto } from './dto/update-url.dto';
 import { Response } from 'express';

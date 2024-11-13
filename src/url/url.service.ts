@@ -3,9 +3,9 @@ import { Url } from './entities/url.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUrlDto } from './dto/create-url.dto';
-import { generateShortCode } from 'src/utils/utils';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUrlDto } from './dto/update-url.dto';
+import { generateShortCode } from 'src/common/utils';
 
 @Injectable()
 export class UrlService {
